@@ -1,12 +1,8 @@
 import express from "express";
+import { getApiStatus } from "../controllers/indexController.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: "Welcome to Student Course Management System API",
-  });
-});
+router.get("/", getApiStatus);
 
 export default router;
