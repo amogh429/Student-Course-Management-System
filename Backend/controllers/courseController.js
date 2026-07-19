@@ -101,3 +101,31 @@ export const updateCourse = async (req, res) => {
 
     }
 };
+
+
+export const deleteCourse = async (req, res) => {
+    try {
+
+        const course = await Course.findByIdAndDelete(req.params.id);
+
+        if (!course) {
+            return res.status(404).json({
+                success: false,
+                message: "Course not found"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Course deleted successfully"
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+};
