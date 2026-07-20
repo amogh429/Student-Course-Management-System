@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import courseRoutes from "./routes/courseRoutes.js";
+import studentRoutes from "./routes/studentRoutes.js";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 dotenv.config();
@@ -9,8 +10,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-// app.use("/api", indexRoutes);
+
 app.use("/api/courses", courseRoutes);
+app.use("/api/students", studentRoutes);
 
 const PORT = process.env.PORT || 5000;
 
