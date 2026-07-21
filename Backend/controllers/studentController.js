@@ -17,8 +17,25 @@ export const createStudent = async (req, res) => {
   }
 };
 
-export const getAllStudents = (req, res) => {
-  res.send("Get All Students API");
+export const getAllStudents = async (req, res) => {
+    try {
+
+        const students = await Student.find().sort({ createdAt: -1 });
+
+        res.status(200).json({
+            success: true,
+            count: students.length,
+            data: students
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
 };
 
 export const getStudentById = (req, res) => {
