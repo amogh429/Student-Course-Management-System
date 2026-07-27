@@ -115,3 +115,75 @@ export const getEnrollmentById = async (req, res) => {
 
     }
 };
+
+export const updateEnrollment = async (req, res) => {
+    try {
+
+        const { status } = req.body;
+
+        const enrollment = await Enrollment.findByIdAndUpdate(
+            req.params.id,
+            { status },
+            {
+                new: true,
+                runValidators: true
+            }
+        )
+        .populate(
+            "student",
+            "studentName studentId department semester"
+        )
+        .populate(
+            "course",
+            "courseName courseCode credits"
+        );
+
+        if (!enrollment) {
+            return res.status(404).json({
+                success: false,
+                message: "Enrollment not found"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Enrollment updated successfully",
+            data: enrollment
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+};
+
+export const deleteEnrollment = async (req, res) => {
+    try {
+
+        const enrollment = await Enrollment.findByIdAndDelete(req.params.id);
+
+        if (!enrollment) {
+            return res.status(404).json({
+                success: false,
+                message: "Enrollment not found"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Enrollment deleted successfully"
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+};
