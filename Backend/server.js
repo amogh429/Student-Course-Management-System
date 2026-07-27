@@ -3,6 +3,7 @@ import cors from "cors";
 import courseRoutes from "./routes/courseRoutes.js";
 import studentRoutes from "./routes/studentRoutes.js";
 import enrollmentRoutes from "./routes/enrollmentRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use("/api/courses", courseRoutes);
 app.use("/api/students", studentRoutes);
 app.use("/api/enrollments",enrollmentRoutes);
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
 
