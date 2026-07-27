@@ -79,3 +79,39 @@ export const getAllEnrollments = async (req, res) => {
 
     }
 };
+
+
+export const getEnrollmentById = async (req, res) => {
+    try {
+
+        const enrollment = await Enrollment.findById(req.params.id)
+            .populate(
+                "student",
+                "studentName studentId email department semester"
+            )
+            .populate(
+                "course",
+                "courseName courseCode department semester credits"
+            );
+
+        if (!enrollment) {
+            return res.status(404).json({
+                success: false,
+                message: "Enrollment not found"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            data: enrollment
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+};
