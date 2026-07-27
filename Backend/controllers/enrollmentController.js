@@ -56,3 +56,26 @@ export const createEnrollment = async (req, res) => {
 
     }
 };
+
+export const getAllEnrollments = async (req, res) => {
+    try {
+
+        const enrollments = await Enrollment.find()
+            .populate("student")
+            .populate("course");
+
+        res.status(200).json({
+            success: true,
+            count: enrollments.length,
+            data: enrollments
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+};
