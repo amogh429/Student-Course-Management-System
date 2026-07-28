@@ -1,25 +1,50 @@
+
 import { useEffect, useState } from "react";
-import api from "../services/api";
+import StudentForm from "../components/students/StudentForm";
+import StudentTable from "../components/students/StudentTable";
+import {
+  getStudents,
+  createStudent,
+} from "../services/studentService";
 
 function Students() {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const res = await api.get("/students");
-        setStudents(res.data.data);
-      } catch (error) {
-        console.error(error);
-        alert("Failed to load students");
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Fetch all students
+  const fetchStudents = async () => {
+    try {
+      const response = await getStudents();
+      setStudents(response.data.data);
+    } catch (error) {
+      console.error("Error fetching students:", error);
+      alert("Failed to load students.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  // Load students when page opens
+  useEffect(() => {
     fetchStudents();
   }, []);
+
+  // Add a new student
+  const handleAddStudent = async (studentData) => {
+    try {
+      await createStudent(studentData);
+
+      alert("Student added successfully!");
+
+      fetchStudents();
+    } catch (error) {
+      console.error("Error creating student:", error);
+
+      alert(
+        error.response?.data?.message || "Failed to add student."
+      );
+    }
+  };
 
   if (loading) {
     return <h2>Loading students...</h2>;
@@ -27,31 +52,13 @@ function Students() {
 
   return (
     <div>
-      <h2>Students</h2>
+      <h2>Student Management</h2>
 
-      <table border="1" cellPadding="10">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Student ID</th>
-            <th>Email</th>
-            <th>Department</th>
-            <th>Semester</th>
-          </tr>
-        </thead>
+      <StudentForm onAddStudent={handleAddStudent} />
 
-        <tbody>
-          {students.map((student) => (
-            <tr key={student._id}>
-              <td>{student.studentName}</td>
-              <td>{student.studentId}</td>
-              <td>{student.email}</td>
-              <td>{student.department}</td>
-              <td>{student.semester}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <hr />
+
+      <StudentTable students={students} />
     </div>
   );
 }
