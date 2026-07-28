@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
-
+import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -21,11 +22,41 @@ function App() {
 
         <Route path="/register" element={<Register />} />
 
-        <Route path="/students" element={<Students />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/courses" element={<Courses />} />
+        <Route
+          path="/students"
+          element={
+            <ProtectedRoute>
+              <Students />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/enrollments" element={<Enrollments />} />
+        <Route
+          path="/courses"
+          element={
+            <ProtectedRoute>
+              <Courses />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/enrollments"
+          element={
+            <ProtectedRoute>
+              <Enrollments />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
