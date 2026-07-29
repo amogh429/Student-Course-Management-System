@@ -8,15 +8,14 @@ function CourseRow({ course, onEdit, onDelete }) {
       <td>{course.credits}</td>
 
       <td>
-        <button onClick={() => onEdit(course)}>
-          Edit
-        </button>
-
-        {" "}
-
-        <button onClick={() => onDelete(course._id)}>
-          Delete
-        </button>
+        <div class="action-buttons">
+          <button onClick={() => onEdit(course)} className="warning-btn">
+            Edit
+          </button>{" "}
+          <button onClick={() => onDelete(course._id)} className="danger-btn">
+            Delete
+          </button>
+        </div>
       </td>
     </tr>
   );

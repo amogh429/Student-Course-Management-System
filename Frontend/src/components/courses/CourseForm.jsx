@@ -68,9 +68,7 @@ function CourseForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <h3>
-        {editingCourse ? "Update Course" : "Add Course"}
-      </h3>
+      <h3>{editingCourse ? "Update Course" : "Add Course"}</h3>
 
       <input
         name="courseName"
@@ -79,7 +77,8 @@ function CourseForm({
         onChange={handleChange}
       />
 
-      <br /><br />
+      <br />
+      <br />
 
       <input
         name="courseCode"
@@ -88,7 +87,8 @@ function CourseForm({
         onChange={handleChange}
       />
 
-      <br /><br />
+      <br />
+      <br />
 
       <input
         name="department"
@@ -97,7 +97,8 @@ function CourseForm({
         onChange={handleChange}
       />
 
-      <br /><br />
+      <br />
+      <br />
 
       <input
         name="semester"
@@ -106,7 +107,8 @@ function CourseForm({
         onChange={handleChange}
       />
 
-      <br /><br />
+      <br />
+      <br />
 
       <input
         name="credits"
@@ -115,7 +117,8 @@ function CourseForm({
         onChange={handleChange}
       />
 
-      <br /><br />
+      <br />
+      <br />
 
       <textarea
         name="description"
@@ -124,9 +127,10 @@ function CourseForm({
         onChange={handleChange}
       />
 
-      <br /><br />
+      <br />
+      <br />
 
-      <button type="submit">
+      <button type="submit" className="warning-btn">
         {editingCourse ? "Update Course" : "Add Course"}
       </button>
     </form>

@@ -11,6 +11,7 @@ import {
 
 import { getStudents } from "../services/studentService";
 import { getCourses } from "../services/courseService";
+import Layout from "../components/layout/Layout";
 
 function Enrollments() {
   const [enrollments, setEnrollments] = useState([]);
@@ -99,26 +100,30 @@ function Enrollments() {
   }
 
   return (
-    <div>
-      <h2>Enrollment Management</h2>
+    <Layout>
+      <div className="container">
+        <h2 className="page-title">Enrollment Management</h2>
+        <div className="card">
+          <EnrollmentForm
+            students={students}
+            courses={courses}
+            onAddEnrollment={handleAddEnrollment}
+            editingEnrollment={editingEnrollment}
+            setEditingEnrollment={setEditingEnrollment}
+            refreshEnrollments={fetchEnrollments}
+          />
+        </div>
 
-      <EnrollmentForm
-        students={students}
-        courses={courses}
-        onAddEnrollment={handleAddEnrollment}
-        editingEnrollment={editingEnrollment}
-        setEditingEnrollment={setEditingEnrollment}
-        refreshEnrollments={fetchEnrollments}
-      />
-
-      <hr />
-
-      <EnrollmentTable
-        enrollments={enrollments}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
-    </div>
+        <hr />
+        <div className="card">
+          <EnrollmentTable
+            enrollments={enrollments}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        </div>
+      </div>
+    </Layout>
   );
 }
 

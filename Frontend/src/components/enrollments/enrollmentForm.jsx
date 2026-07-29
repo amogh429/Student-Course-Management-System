@@ -125,7 +125,7 @@ function EnrollmentForm({
 
       <br /><br />
 
-      <button type="submit">
+      <button type="submit" className="warning-btn">
         {editingEnrollment
           ? "Update Enrollment"
           : "Create Enrollment"}

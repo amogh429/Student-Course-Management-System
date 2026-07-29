@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../services/api";
 
 function Login() {
@@ -36,32 +36,40 @@ function Login() {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="auth-container">
+      <div className="auth-card">
+        <h2>Login</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-        />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+          />
 
-        <br />
-        <br />
+          <br />
+          <br />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-        />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={handleChange}
+          />
 
-        <br />
-        <br />
+          <br />
+          <br />
 
-        <button type="submit">Login</button>
-      </form>
+          <button type="submit" className="auth-btn">
+            Login
+          </button>
+        </form>
+        <div className="auth-footer">
+          Don't have an account?
+          <Link to="/register"> Register</Link>
+        </div>
+      </div>
     </div>
   );
 }

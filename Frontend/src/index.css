@@ -1,0 +1,388 @@
+/* ===== GENERAL ===== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: #f4f6f9;
+  color: #333;
+}
+
+/* ===== LAYOUT ===== */
+
+.container {
+  width: 95%;
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+.page-title {
+  font-size: 30px;
+  margin-bottom: 25px;
+  color: #1e3a8a;
+}
+
+/* ===== NAVBAR ===== */
+
+.navbar {
+  background: #1e40af;
+  color: white;
+  padding: 18px 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar h2 {
+  font-size: 24px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  color: #dbeafe;
+}
+
+.logout-btn {
+  background: #dc2626;
+  color: white;
+}
+
+.logout-btn:hover {
+  background: #b91c1c;
+}
+
+/* ===== DASHBOARD ===== */
+
+.dashboard-cards {
+  display: flex;
+  gap: 25px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.dashboard-card {
+  flex: 1;
+  min-width: 250px;
+
+  background: white;
+
+  padding: 25px;
+
+  border-radius: 10px;
+
+  box-shadow: 0 3px 12px rgba(0,0,0,.08);
+
+  text-align: center;
+}
+
+.dashboard-card h2 {
+  color: #2563eb;
+}
+
+.dashboard-card h1 {
+  margin-top: 15px;
+  font-size: 42px;
+}
+
+/* ===== CARD ===== */
+
+.card {
+
+  background: white;
+
+  padding: 25px;
+
+  border-radius: 10px;
+
+  margin-bottom: 25px;
+
+  box-shadow: 0 3px 12px rgba(0,0,0,.08);
+
+}
+
+/* ===== TABLE ===== */
+
+table {
+
+  width: 100%;
+
+  border-collapse: collapse;
+
+  margin-top: 20px;
+
+  background: white;
+
+}
+
+table th {
+
+  background: #2563eb;
+
+  color: white;
+
+  padding: 15px;
+
+}
+
+table td {
+
+  padding: 14px;
+
+  border-bottom: 1px solid #ddd;
+
+}
+
+table tr:hover {
+
+  background: #f8fafc;
+
+}
+
+/* ===== FORM ===== */
+
+form {
+
+  display: flex;
+
+  flex-direction: column;
+
+}
+
+input,
+select,
+textarea {
+
+  padding: 12px;
+
+  margin-top: 10px;
+
+  margin-bottom: 18px;
+
+  border-radius: 6px;
+
+  border: 1px solid #cbd5e1;
+
+  font-size: 15px;
+
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+
+  outline: none;
+
+  border-color: #2563eb;
+
+}
+
+/* ===== BUTTON ===== */
+
+button {
+
+  padding: 11px 20px;
+
+  border: none;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  transition: .25s;
+
+}
+
+button:hover {
+
+  opacity: .9;
+
+}
+
+.primary-btn {
+
+  background: #2563eb;
+
+  color: white;
+
+}
+
+.success-btn {
+
+  background: #16a34a;
+
+  color: white;
+
+}
+
+.warning-btn {
+
+  background: #f59e0b;
+
+  color: white;
+
+}
+
+.danger-btn {
+
+  background: #dc2626;
+
+  color: white;
+
+}
+
+/* ===== ACTION BUTTONS ===== */
+
+.action-buttons {
+
+  display: flex;
+
+  gap: 10px;
+
+}
+
+/* ===== QUICK LINKS ===== */
+
+.quick-links {
+
+  display: flex;
+
+  gap: 20px;
+
+  flex-wrap: wrap;
+
+  margin-top: 25px;
+
+}
+
+.quick-links a {
+
+  text-decoration: none;
+
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width:768px){
+
+.dashboard-cards{
+
+flex-direction:column;
+
+}
+
+.navbar{
+
+flex-direction:column;
+
+gap:15px;
+
+}
+
+.nav-links{
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+}
+
+table{
+
+display:block;
+
+overflow-x:auto;
+
+}
+
+}
+
+/* ===== AUTH PAGES ===== */
+
+.auth-container {
+  min-height: 100vh;
+  background: #f4f6f9;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+
+  background: white;
+
+  padding: 35px;
+
+  border-radius: 12px;
+
+  box-shadow: 0 8px 25px rgba(0,0,0,.12);
+}
+
+.auth-card h1 {
+  text-align: center;
+  color: #2563eb;
+  margin-bottom: 10px;
+}
+
+.auth-card p {
+  text-align: center;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-card input,
+.auth-card select {
+  margin-bottom: 18px;
+}
+
+.auth-btn {
+  background: #2563eb;
+  color: white;
+  width: 100%;
+}
+
+.auth-btn:hover {
+  background: #1d4ed8;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.auth-footer a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}

@@ -7,6 +7,7 @@ import {
   createCourse,
   deleteCourse,
 } from "../services/courseService";
+import Layout from "../components/layout/Layout";
 
 function Courses() {
   const [courses, setCourses] = useState([]);
@@ -66,24 +67,29 @@ function Courses() {
   }
 
   return (
-    <div>
-      <h2>Course Management</h2>
+    <Layout>
+      <div className="container">
+        <h2 className="page-title">Course Management</h2>
 
-      <CourseForm
-        onAddCourse={handleAddCourse}
-        editingCourse={editingCourse}
-        setEditingCourse={setEditingCourse}
-        refreshCourses={fetchCourses}
-      />
+        <div className="card">
+          <CourseForm
+            onAddCourse={handleAddCourse}
+            editingCourse={editingCourse}
+            setEditingCourse={setEditingCourse}
+            refreshCourses={fetchCourses}
+          />
+        </div>
 
-      <hr />
-
-      <CourseTable
-        courses={courses}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
-    </div>
+        <hr />
+        <div className="card">
+          <CourseTable
+            courses={courses}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        </div>
+      </div>
+    </Layout>
   );
 }
 

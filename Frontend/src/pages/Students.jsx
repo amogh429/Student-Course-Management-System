@@ -4,9 +4,9 @@ import StudentTable from "../components/students/StudentTable";
 import {
   getStudents,
   createStudent,
-  updateStudent,
   deleteStudent,
 } from "../services/studentService";
+import Layout from "../components/layout/Layout";
 
 function Students() {
   const [students, setStudents] = useState([]);
@@ -75,20 +75,28 @@ function Students() {
   }
 
   return (
-    <div>
-      <h2>Student Management</h2>
+    <Layout>
+      <div className="container">
+        <h2 className="page-title">Student Management</h2>
+        <div className="card">
+          <StudentForm
+            onAddStudent={handleAddStudent}
+            editingStudent={editingStudent}
+            setEditingStudent={setEditingStudent}
+            refreshStudents={fetchStudents}
+          />
+        </div>
 
-      <StudentForm
-        onAddStudent={handleAddStudent}
-        editingStudent={editingStudent}
-        setEditingStudent={setEditingStudent}
-        refreshStudents={fetchStudents}
-      />
-
-      <hr />
-
-      <StudentTable students={students} onEdit={handleEdit} onDelete={handleDelete} />
-    </div>
+        <hr />
+        <div className="card">
+          <StudentTable
+            students={students}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        </div>
+      </div>
+    </Layout>
   );
 }
 

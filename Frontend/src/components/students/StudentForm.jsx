@@ -117,7 +117,7 @@ function StudentForm({
       <br />
       <br />
 
-      <button type="submit">
+      <button type="submit" className="warning-btn">
         {editingStudent ? "Update Student" : "Add Student"}
       </button>
     </form>

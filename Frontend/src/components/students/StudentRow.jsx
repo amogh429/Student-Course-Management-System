@@ -8,8 +8,14 @@ function StudentRow({ student, onEdit, onDelete }) {
       <td>{student.semester}</td>
 
       <td>
-        <button onClick={() => onEdit(student)}>Edit</button>{" "}
-        <button onClick={() => onDelete(student._id)}>Delete</button>
+        <div className="action-button">
+          <button onClick={() => onEdit(student)} className="warning-btn">
+            Edit
+          </button>{" "}
+          <button onClick={() => onDelete(student._id)} className="danger-btn">
+            Delete
+          </button>
+        </div>
       </td>
     </tr>
   );
