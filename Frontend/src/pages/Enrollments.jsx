@@ -6,6 +6,7 @@ import EnrollmentTable from "../components/enrollments/EnrollmentTable";
 import {
   getEnrollments,
   createEnrollment,
+  deleteEnrollment,
 } from "../services/enrollmentService";
 
 import { getStudents } from "../services/studentService";
@@ -15,6 +16,7 @@ function Enrollments() {
   const [enrollments, setEnrollments] = useState([]);
   const [students, setStudents] = useState([]);
   const [courses, setCourses] = useState([]);
+  const [editingEnrollment, setEditingEnrollment] = useState(null);
 
   const [loading, setLoading] = useState(true);
 
@@ -25,6 +27,26 @@ function Enrollments() {
     } catch (error) {
       console.error(error);
       alert("Failed to load enrollments.");
+    }
+  };
+
+  const handleEdit = (enrollment) => {
+    setEditingEnrollment(enrollment);
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Delete this enrollment?")) return;
+
+    try {
+      await deleteEnrollment(id);
+
+      alert("Enrollment deleted successfully!");
+
+      fetchEnrollments();
+    } catch (error) {
+      console.error(error);
+
+      alert("Delete failed.");
     }
   };
 
@@ -50,11 +72,7 @@ function Enrollments() {
     const loadData = async () => {
       setLoading(true);
 
-      await Promise.all([
-        fetchEnrollments(),
-        fetchStudents(),
-        fetchCourses(),
-      ]);
+      await Promise.all([fetchEnrollments(), fetchStudents(), fetchCourses()]);
 
       setLoading(false);
     };
@@ -72,10 +90,7 @@ function Enrollments() {
     } catch (error) {
       console.error(error);
 
-      alert(
-        error.response?.data?.message ||
-          "Failed to create enrollment."
-      );
+      alert(error.response?.data?.message || "Failed to create enrollment.");
     }
   };
 
@@ -91,12 +106,17 @@ function Enrollments() {
         students={students}
         courses={courses}
         onAddEnrollment={handleAddEnrollment}
+        editingEnrollment={editingEnrollment}
+        setEditingEnrollment={setEditingEnrollment}
+        refreshEnrollments={fetchEnrollments}
       />
 
       <hr />
 
       <EnrollmentTable
         enrollments={enrollments}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
       />
     </div>
   );

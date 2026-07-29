@@ -1,15 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { updateEnrollment } from "../../services/enrollmentService";
 
 function EnrollmentForm({
   students,
   courses,
   onAddEnrollment,
+  editingEnrollment,
+  setEditingEnrollment,
+  refreshEnrollments,
 }) {
   const [formData, setFormData] = useState({
     student: "",
     course: "",
     status: "Active",
   });
+
+  useEffect(() => {
+    if (editingEnrollment) {
+      setFormData({
+        student: editingEnrollment.student._id,
+        course: editingEnrollment.course._id,
+        status: editingEnrollment.status,
+      });
+    }
+  }, [editingEnrollment]);
 
   const handleChange = (e) => {
     setFormData({
@@ -18,16 +32,7 @@ function EnrollmentForm({
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!formData.student || !formData.course) {
-      alert("Please select a student and course.");
-      return;
-    }
-
-    await onAddEnrollment(formData);
-
+  const resetForm = () => {
     setFormData({
       student: "",
       course: "",
@@ -35,77 +40,95 @@ function EnrollmentForm({
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (editingEnrollment) {
+        await updateEnrollment(
+          editingEnrollment._id,
+          formData
+        );
+
+        alert("Enrollment updated successfully!");
+
+        setEditingEnrollment(null);
+
+        refreshEnrollments();
+      } else {
+        await onAddEnrollment(formData);
+      }
+
+      resetForm();
+    } catch (error) {
+      console.error(error);
+
+      alert("Operation failed.");
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit}>
-      <h3>Create Enrollment</h3>
+      <h3>
+        {editingEnrollment
+          ? "Update Enrollment"
+          : "Create Enrollment"}
+      </h3>
 
-      <div>
-        <label>Student</label>
-        <br />
+      <select
+        name="student"
+        value={formData.student}
+        onChange={handleChange}
+      >
+        <option value="">Select Student</option>
 
-        <select
-          name="student"
-          value={formData.student}
-          onChange={handleChange}
-        >
-          <option value="">Select Student</option>
+        {students.map((student) => (
+          <option
+            key={student._id}
+            value={student._id}
+          >
+            {student.studentName}
+          </option>
+        ))}
+      </select>
 
-          {students.map((student) => (
-            <option
-              key={student._id}
-              value={student._id}
-            >
-              {student.studentName}
-            </option>
-          ))}
-        </select>
-      </div>
+      <br /><br />
 
-      <br />
+      <select
+        name="course"
+        value={formData.course}
+        onChange={handleChange}
+      >
+        <option value="">Select Course</option>
 
-      <div>
-        <label>Course</label>
-        <br />
+        {courses.map((course) => (
+          <option
+            key={course._id}
+            value={course._id}
+          >
+            {course.courseName}
+          </option>
+        ))}
+      </select>
 
-        <select
-          name="course"
-          value={formData.course}
-          onChange={handleChange}
-        >
-          <option value="">Select Course</option>
+      <br /><br />
 
-          {courses.map((course) => (
-            <option
-              key={course._id}
-              value={course._id}
-            >
-              {course.courseName}
-            </option>
-          ))}
-        </select>
-      </div>
+      <select
+        name="status"
+        value={formData.status}
+        onChange={handleChange}
+      >
+        <option value="Active">Active</option>
+        <option value="Completed">Completed</option>
+        <option value="Dropped">Dropped</option>
+      </select>
 
-      <br />
-
-      <div>
-        <label>Status</label>
-        <br />
-
-        <select
-          name="status"
-          value={formData.status}
-          onChange={handleChange}
-        >
-          <option value="Active">Active</option>
-          <option value="Completed">Completed</option>
-          <option value="Dropped">Dropped</option>
-        </select>
-      </div>
-
-      <br />
+      <br /><br />
 
       <button type="submit">
-        Create Enrollment
+        {editingEnrollment
+          ? "Update Enrollment"
+          : "Create Enrollment"}
       </button>
     </form>
   );

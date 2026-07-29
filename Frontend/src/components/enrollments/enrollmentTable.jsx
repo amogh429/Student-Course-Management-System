@@ -1,6 +1,10 @@
 import EnrollmentRow from "./EnrollmentRow";
 
-function EnrollmentTable({ enrollments }) {
+function EnrollmentTable({
+  enrollments,
+  onEdit,
+  onDelete,
+}) {
   return (
     <table border="1" cellPadding="10">
       <thead>
@@ -8,7 +12,8 @@ function EnrollmentTable({ enrollments }) {
           <th>Student</th>
           <th>Course</th>
           <th>Status</th>
-          <th>Enrollment Date</th>
+          <th>Date</th>
+          <th>Actions</th>
         </tr>
       </thead>
 
@@ -17,6 +22,8 @@ function EnrollmentTable({ enrollments }) {
           <EnrollmentRow
             key={enrollment._id}
             enrollment={enrollment}
+            onEdit={onEdit}
+            onDelete={onDelete}
           />
         ))}
       </tbody>
