@@ -1,6 +1,6 @@
 import StudentRow from "./StudentRow";
 
-function StudentTable({ students, onEdit }) {
+function StudentTable({ students, onEdit, onDelete }) {
   return (
     <table border="1" cellPadding="10">
       <thead>
@@ -20,6 +20,7 @@ function StudentTable({ students, onEdit }) {
             key={student._id}
             student={student}
             onEdit={onEdit}
+            onDelete={onDelete}
           />
         ))}
       </tbody>

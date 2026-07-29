@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import StudentForm from "../components/students/StudentForm";
 import StudentTable from "../components/students/StudentTable";
-import { getStudents, createStudent } from "../services/studentService";
+import {
+  getStudents,
+  createStudent,
+  updateStudent,
+  deleteStudent,
+} from "../services/studentService";
 
 function Students() {
   const [students, setStudents] = useState([]);
@@ -45,6 +50,26 @@ function Students() {
     setEditingStudent(student);
   };
 
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this student?",
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      await deleteStudent(id);
+
+      alert("Student deleted successfully!");
+
+      fetchStudents();
+    } catch (error) {
+      console.error(error);
+
+      alert("Failed to delete student.");
+    }
+  };
+
   if (loading) {
     return <h2>Loading students...</h2>;
   }
@@ -62,7 +87,7 @@ function Students() {
 
       <hr />
 
-      <StudentTable students={students} onEdit={handleEdit} />
+      <StudentTable students={students} onEdit={handleEdit} onDelete={handleDelete} />
     </div>
   );
 }
