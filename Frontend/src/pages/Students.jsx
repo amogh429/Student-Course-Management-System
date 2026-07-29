@@ -1,15 +1,12 @@
-
 import { useEffect, useState } from "react";
 import StudentForm from "../components/students/StudentForm";
 import StudentTable from "../components/students/StudentTable";
-import {
-  getStudents,
-  createStudent,
-} from "../services/studentService";
+import { getStudents, createStudent } from "../services/studentService";
 
 function Students() {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [editingStudent, setEditingStudent] = useState(null);
 
   // Fetch all students
   const fetchStudents = async () => {
@@ -40,10 +37,12 @@ function Students() {
     } catch (error) {
       console.error("Error creating student:", error);
 
-      alert(
-        error.response?.data?.message || "Failed to add student."
-      );
+      alert(error.response?.data?.message || "Failed to add student.");
     }
+  };
+
+  const handleEdit = (student) => {
+    setEditingStudent(student);
   };
 
   if (loading) {
@@ -54,11 +53,16 @@ function Students() {
     <div>
       <h2>Student Management</h2>
 
-      <StudentForm onAddStudent={handleAddStudent} />
+      <StudentForm
+        onAddStudent={handleAddStudent}
+        editingStudent={editingStudent}
+        setEditingStudent={setEditingStudent}
+        refreshStudents={fetchStudents}
+      />
 
       <hr />
 
-      <StudentTable students={students} />
+      <StudentTable students={students} onEdit={handleEdit} />
     </div>
   );
 }
