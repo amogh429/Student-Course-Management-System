@@ -5,7 +5,7 @@ import { getStudents } from "../services/studentService";
 import { getCourses } from "../services/courseService";
 import { getEnrollments } from "../services/enrollmentService";
 import Layout from "../components/layout/Layout";
-
+import socket from "../socket";
 function Dashboard() {
   const [stats, setStats] = useState({
     students: 0,
@@ -38,6 +38,16 @@ function Dashboard() {
 
   useEffect(() => {
     fetchDashboardData();
+  }, []);
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("Connected:", socket.id);
+    });
+
+    return () => {
+      socket.off("connect");
+    };
   }, []);
 
   if (loading) {
