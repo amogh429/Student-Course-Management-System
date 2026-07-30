@@ -9,6 +9,7 @@ function Register() {
     name: "",
     email: "",
     password: "",
+    role: "Student",
   });
 
   const handleChange = (e) => {
@@ -67,6 +68,11 @@ function Register() {
 
           <br />
           <br />
+
+          <select name="role" value={formData.role} onChange={handleChange}>
+            <option value="Student">Student</option>
+            <option value="Admin">Admin</option>
+          </select>
 
           <button type="submit" className="auth-btn">
             Register
