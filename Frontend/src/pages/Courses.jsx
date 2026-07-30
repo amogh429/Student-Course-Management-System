@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CourseForm from "../components/courses/CourseForm";
 import CourseTable from "../components/courses/CourseTable";
+import socket from "../socket";
 
 import {
   getCourses,
@@ -28,6 +29,18 @@ function Courses() {
 
   useEffect(() => {
     fetchCourses();
+
+    socket.on("courseCreated", fetchCourses);
+
+    socket.on("courseUpdated", fetchCourses);
+
+    socket.on("courseDeleted", fetchCourses);
+
+    return () => {
+      socket.off("courseCreated");
+      socket.off("courseUpdated");
+      socket.off("courseDeleted");
+    };
   }, []);
 
   const handleAddCourse = async (courseData) => {

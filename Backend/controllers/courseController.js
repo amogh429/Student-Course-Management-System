@@ -1,10 +1,10 @@
 import Course from "../models/Course.js";
-
+import { getIO } from "../socket.js";
 export const createCourse = async (req, res) => {
     try {
 
         const course = await Course.create(req.body);
-
+        getIO().emit("courseCreated", course);
         res.status(201).json({
             success: true,
             message: "Course created successfully",
@@ -86,6 +86,7 @@ export const updateCourse = async (req, res) => {
             });
         }
 
+        getIO().emit("courseUpdated", course);
         res.status(200).json({
             success: true,
             message: "Course updated successfully",
@@ -115,6 +116,7 @@ export const deleteCourse = async (req, res) => {
             });
         }
 
+        getIO().emit("courseDeleted", req.params.id);
         res.status(200).json({
             success: true,
             message: "Course deleted successfully"

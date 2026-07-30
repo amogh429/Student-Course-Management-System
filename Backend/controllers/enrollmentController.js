@@ -1,6 +1,7 @@
 import Enrollment from "../models/Enrollment.js";
 import Student from "../models/Student.js";
 import Course from "../models/Course.js";
+import { getIO } from "../socket.js";
 
 export const createEnrollment = async (req, res) => {
     try {
@@ -32,6 +33,8 @@ export const createEnrollment = async (req, res) => {
             student,
             course
         });
+
+        getIO().emit("enrollmentCreated", enrollment);
 
         res.status(201).json({
             success: true,
@@ -145,6 +148,8 @@ export const updateEnrollment = async (req, res) => {
             });
         }
 
+        getIO().emit("enrollmentUpdated", enrollment);
+
         res.status(200).json({
             success: true,
             message: "Enrollment updated successfully",
@@ -172,6 +177,8 @@ export const deleteEnrollment = async (req, res) => {
                 message: "Enrollment not found"
             });
         }
+
+        getIO().emit("enrollmentDeleted", enrollment._id);
 
         res.status(200).json({
             success: true,

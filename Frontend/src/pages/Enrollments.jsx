@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import socket from "../socket";
 
 import EnrollmentForm from "../components/enrollments/EnrollmentForm";
 import EnrollmentTable from "../components/enrollments/EnrollmentTable";
@@ -30,6 +31,31 @@ function Enrollments() {
       alert("Failed to load enrollments.");
     }
   };
+
+  useEffect(() => {
+    fetchEnrollments();
+
+    socket.on("enrollmentCreated", (enrollment) => {
+      console.log("Enrollment Created:", enrollment);
+      fetchEnrollments();
+    });
+
+    socket.on("enrollmentUpdated", (enrollment) => {
+      console.log("Enrollment Updated:", enrollment);
+      fetchEnrollments();
+    });
+
+    socket.on("enrollmentDeleted", (id) => {
+      console.log("Enrollment Deleted:", id);
+      fetchEnrollments();
+    });
+
+    return () => {
+      socket.off("enrollmentCreated");
+      socket.off("enrollmentUpdated");
+      socket.off("enrollmentDeleted");
+    };
+  }, []);
 
   const handleEdit = (enrollment) => {
     setEditingEnrollment(enrollment);

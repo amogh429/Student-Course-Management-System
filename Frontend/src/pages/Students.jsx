@@ -7,6 +7,7 @@ import {
   deleteStudent,
 } from "../services/studentService";
 import Layout from "../components/layout/Layout";
+import socket from "../socket";
 
 function Students() {
   const [students, setStudents] = useState([]);
@@ -29,7 +30,19 @@ function Students() {
   // Load students when page opens
   useEffect(() => {
     fetchStudents();
-  }, []);
+
+    socket.on("studentCreated", fetchStudents);
+
+    socket.on("studentUpdated", fetchStudents);
+
+    socket.on("studentDeleted", fetchStudents);
+
+    return () => {
+        socket.off("studentCreated");
+        socket.off("studentUpdated");
+        socket.off("studentDeleted");
+    };
+}, []);
 
   // Add a new student
   const handleAddStudent = async (studentData) => {

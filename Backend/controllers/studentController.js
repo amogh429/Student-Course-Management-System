@@ -1,9 +1,10 @@
 import Student from "../models/Student.js";
+import { getIO } from "../socket.js";
 
 export const createStudent = async (req, res) => {
   try {
     const student = await Student.create(req.body);
-
+    getIO().emit("studentCreated", student);
     res.status(201).json({
       success: true,
       message: "Student created successfully",
@@ -84,6 +85,8 @@ export const updateStudent = async (req, res) => {
             });
         }
 
+        getIO().emit("studentUpdated", student);
+
         res.status(200).json({
             success: true,
             message: "Student updated successfully",
@@ -111,6 +114,8 @@ export const deleteStudent = async (req, res) => {
                 message: "Student not found"
             });
         }
+
+        getIO().emit("studentDeleted", req.params.id);
 
         res.status(200).json({
             success: true,

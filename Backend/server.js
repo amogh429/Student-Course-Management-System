@@ -1,44 +1,42 @@
 import express from "express";
 import cors from "cors";
-import courseRoutes from "./routes/courseRoutes.js";
+import dotenv from "dotenv";
+import { createServer } from "http";
+
+import connectDB from "./config/db.js";
+import { initializeSocket } from "./socket.js";
+
 import studentRoutes from "./routes/studentRoutes.js";
+import courseRoutes from "./routes/courseRoutes.js";
 import enrollmentRoutes from "./routes/enrollmentRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
-import { createServer } from "http";
-import { Server } from "socket.io";
-import dotenv from "dotenv";
-import connectDB from "./config/db.js";
+
 dotenv.config();
+
+// Connect Database
 connectDB();
+
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/courses", courseRoutes);
-app.use("/api/students", studentRoutes);
-app.use("/api/enrollments",enrollmentRoutes);
+// Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/students", studentRoutes);
+app.use("/api/courses", courseRoutes);
+app.use("/api/enrollments", enrollmentRoutes);
+
+// Create HTTP Server
+const server = createServer(app);
+
+// Initialize Socket.IO
+initializeSocket(server);
 
 const PORT = process.env.PORT || 5000;
 
-const server = createServer(app);
-
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:5173",
-    methods: ["GET","POST"],
-  },
-});
-
-io.on("connection", (socket) => {
-  console.log("User Connected:",socket.id);
-
-  socket.on("disconnect", () => {
-    console.log("User Disconnected:",socket.id);
-  });
-});
-
+// Start Server
 server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
