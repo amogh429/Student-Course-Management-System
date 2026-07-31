@@ -1,4 +1,4 @@
-import EnrollmentRow from "./EnrollmentRow";
+import EnrollmentRow from "./enrollmentRow";
 
 function EnrollmentTable({
   enrollments,
