@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import socket from "../socket";
 
-import EnrollmentForm from "../components/enrollments/EnrollmentForm";
-import EnrollmentTable from "../components/enrollments/EnrollmentTable";
+import EnrollmentForm from "../components/enrollments/enrollmentForm.jsx";
+import EnrollmentTable from "../components/enrollments/enrollmentTable.jsx";
 
 import {
   getEnrollments,
