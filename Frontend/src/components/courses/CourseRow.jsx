@@ -8,7 +8,7 @@ function CourseRow({ course, onEdit, onDelete }) {
       <td>{course.credits}</td>
 
       <td>
-        <div class="action-buttons">
+        <div className="action-buttons">
           <button onClick={() => onEdit(course)} className="warning-btn">
             Edit
           </button>{" "}
