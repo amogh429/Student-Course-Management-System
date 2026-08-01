@@ -19,7 +19,9 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin:"https://student-course-management-system-nu.vercel.app"
+}));
 app.use(express.json());
 
 // Routes
