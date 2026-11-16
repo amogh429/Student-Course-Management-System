@@ -7,6 +7,7 @@ export const initializeSocket = (server) => {
     cors: {
       origin: "https://student-course-management-system-nu.vercel.app",
       methods: ["GET", "POST", "PUT", "DELETE"],
+      credentials: true,
     },
   });
 
