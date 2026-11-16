@@ -20,7 +20,8 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin:"https://student-course-management-system-nu.vercel.app"
+  origin:"https://student-course-management-system-nu.vercel.app",
+  credentials: true,
 }));
 app.use(express.json());
 
