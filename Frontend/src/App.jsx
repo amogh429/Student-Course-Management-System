@@ -32,7 +32,7 @@ function App() {
         <Route
           path="/students"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["Admin"]}>
               <Students />
             </ProtectedRoute>
           }
@@ -50,7 +50,7 @@ function App() {
         <Route
           path="/enrollments"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["Admin"]}>
               <Enrollments />
             </ProtectedRoute>
           }

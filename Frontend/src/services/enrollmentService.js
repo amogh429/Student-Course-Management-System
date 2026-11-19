@@ -4,6 +4,10 @@ export const getEnrollments = () => {
   return api.get("/enrollments");
 };
 
+export const getMyEnrollments = () => {
+    return api.get("/enrollments/my");
+};
+
 export const createEnrollment = (data) => {
   return api.post("/enrollments", data);
 };

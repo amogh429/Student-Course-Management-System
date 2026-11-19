@@ -4,6 +4,10 @@ export const getStudents = () => {
     return api.get("/students");
 };
 
+export const getMyStudent = () => {
+    return api.get("/students/me");
+};
+
 export const createStudent = (studentData) => {
     return api.post("/students", studentData);
 };
