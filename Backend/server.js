@@ -20,7 +20,9 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin:"https://student-course-management-system-nu.vercel.app",
+  origin:["https://student-course-management-system-nu.vercel.app",
+    "http://localhost:5173"
+  ],
   credentials: true,
 }));
 app.use(express.json());
