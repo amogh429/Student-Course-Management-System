@@ -194,3 +194,45 @@ export const deleteEnrollment = async (req, res) => {
 
     }
 };
+
+export const getMyEnrollments = async (req, res) => {
+    try {
+
+        const student = await Student.findOne({
+            email: req.user.email
+        });
+
+        if (!student) {
+            return res.status(404).json({
+                success: false,
+                message: "Student profile not found"
+            });
+        }
+
+        const enrollments = await Enrollment.find({
+            student: student._id
+        })
+        .populate(
+            "student",
+            "studentName studentId email department semester"
+        )
+        .populate(
+            "course",
+            "courseName courseCode department semester credits description"
+        );
+
+        res.status(200).json({
+            success: true,
+            count: enrollments.length,
+            data: enrollments
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+};
