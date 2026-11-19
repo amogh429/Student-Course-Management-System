@@ -9,7 +9,6 @@ function Register() {
     name: "",
     email: "",
     password: "",
-    role: "Student",
   });
 
   const handleChange = (e) => {
@@ -29,7 +28,11 @@ function Register() {
 
       navigate("/login");
     } catch (error) {
-      alert(error.response.data.message);
+      const message =
+        error.response?.data?.message ||
+        "Registration failed. Please try again.";
+
+      alert(message);
     }
   };
 
@@ -43,6 +46,7 @@ function Register() {
             type="text"
             name="name"
             placeholder="Name"
+            value={formData.name}
             onChange={handleChange}
           />
 
@@ -53,6 +57,7 @@ function Register() {
             type="email"
             name="email"
             placeholder="Email"
+            value={formData.email}
             onChange={handleChange}
           />
 
@@ -63,21 +68,18 @@ function Register() {
             type="password"
             name="password"
             placeholder="Password"
+            value={formData.password}
             onChange={handleChange}
           />
 
           <br />
           <br />
 
-          <select name="role" value={formData.role} onChange={handleChange}>
-            <option value="Student">Student</option>
-            <option value="Admin">Admin</option>
-          </select>
-
           <button type="submit" className="auth-btn">
             Register
           </button>
         </form>
+
         <div className="auth-footer">
           Already have an account?
           <Link to="/login"> Login</Link>
