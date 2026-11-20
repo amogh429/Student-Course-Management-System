@@ -1,7 +1,7 @@
 function EnrollmentRow({ enrollment, onEdit, onDelete }) {
   return (
     <tr>
-      <td>{enrollment.student.studentName || "Student unavailable"}</td>
+      <td>{enrollment.student?.studentName || "Student unavailable"}</td>
       <td>{enrollment.course?.courseName || "Course unavailable"}</td>
       <td>{enrollment.status}</td>
       <td>{new Date(enrollment.enrollmentDate).toLocaleDateString()}</td>
